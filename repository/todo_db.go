@@ -1,8 +1,6 @@
 package repository
 
 import (
-	"todo/models"
-
 	"gorm.io/gorm"
 )
 
@@ -16,6 +14,6 @@ func NewTodoRepository(db *gorm.DB) todoRepositoryDB {
 
 func (r todoRepositoryDB) GetAll() ([]Todo, error) {
 	todo := make([]Todo, 0)
-	err := r.db.Table(models.Table.Todo).Find(&todo).Error
+	err := r.db.Table(table.Todo).Find(&todo).Error
 	return todo, err
 }
