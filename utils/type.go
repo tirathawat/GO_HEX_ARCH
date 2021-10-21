@@ -4,11 +4,6 @@ import "encoding/json"
 
 type typeUtils struct{}
 
-type IType interface {
-	StructToStruct(x1 interface{}, x2 interface{}) error
-	StructToMap(obj interface{}) (newMap map[string]interface{}, err error)
-}
-
 func NewType() typeUtils {
 	return typeUtils{}
 }

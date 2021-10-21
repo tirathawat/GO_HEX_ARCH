@@ -31,7 +31,7 @@ func (r router) init() {
 }
 
 func (r router) setupTodo() {
-	db := database.New().Get()
+	db := database.New().GetDB()
 	repository := repository.NewTodoRepository(db)
 	controller := controller.NewTodoController(repository)
 	handler := handler.NewTodoHandler(controller)

@@ -3,6 +3,7 @@ package controller
 import (
 	"todo/errs"
 	"todo/logs"
+	"todo/models"
 	"todo/repository"
 	"todo/utils"
 )
@@ -11,12 +12,16 @@ type todoController struct {
 	repository repository.ITodoRepository
 }
 
+type ITodoController interface {
+	GetAll() ([]models.TodoResponse, error)
+}
+
 func NewTodoController(todoRepository repository.ITodoRepository) todoController {
 	return todoController{repository: todoRepository}
 }
 
-func (c todoController) GetAll() ([]TodoResponse, error) {
-	todoResponses := make([]TodoResponse, 0)
+func (c todoController) GetAll() ([]models.TodoResponse, error) {
+	todoResponses := make([]models.TodoResponse, 0)
 
 	todo, err := c.repository.GetAll()
 	if err != nil {

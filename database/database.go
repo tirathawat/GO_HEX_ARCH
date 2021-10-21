@@ -14,8 +14,8 @@ type db struct {
 
 type IDatabase interface {
 	GetDB() *gorm.DB
-	CloseDB(db *gorm.DB) error
-	OpenConnection() (*gorm.DB, error)
+	CloseDB() error
+	OpenConnection() error
 }
 
 var instantiated *db = nil
@@ -37,7 +37,7 @@ func (database db) getDSN() string {
 	)
 }
 
-func (database db) OpenConnection() error {
+func (database *db) OpenConnection() error {
 	var err error
 	dsn := database.getDSN()
 	sql := mysql.Open(dsn)
@@ -45,11 +45,11 @@ func (database db) OpenConnection() error {
 	return err
 }
 
-func (database db) Get() *gorm.DB {
+func (database *db) GetDB() *gorm.DB {
 	return database.db
 }
 
-func (database db) Close() error {
+func (database *db) CloseDB() error {
 	sql, err := database.db.DB()
 	if err != nil {
 		return err
